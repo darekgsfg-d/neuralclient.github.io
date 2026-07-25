@@ -2585,10 +2585,11 @@
         .screenshot-card img { width: 100%; height: 100%; object-fit: fill; display: block; }
 
         .price-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
-            max-width: 1100px; margin: 0 auto;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 24px;
+            max-width: 1150px; margin: 0 auto;
         }
         .price-card {
+            flex: 0 1 240px; box-sizing: border-box;
             background: var(--card); border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 24px; padding: 40px 32px; text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3140,14 +3141,15 @@
 
         @media(max-width:1100px) {
             .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .price-grid { grid-template-columns: repeat(2, 1fr); max-width: 600px; }
+            .price-grid { max-width: 600px; }
+            .price-card { flex: 0 1 260px; }
         }
         @media(max-width:768px) {
             .container { padding: 0 24px; }
             .navbar { padding: 16px 24px; }
             .nav-links { display: none; }
             .features-grid { grid-template-columns: 1fr; }
-            .price-grid { grid-template-columns: 1fr; }
+            .price-card { flex: 0 1 100%; max-width: 340px; }
             .hero h1 { letter-spacing: -1.5px; }
             .hero-stats { flex-direction: column; gap: 24px; padding: 32px; }
             .screenshot-card { width: 340px; height: 210px; }
@@ -3330,6 +3332,8 @@
 
                 <div class="security-tags">
                     <span class="security-tag">OldRust</span>
+                    <span class="security-tag">VeilRust</span>
+                    <span class="security-tag">SunfireRust</span>
                     <span class="security-tag">CompanyRust</span>
                     <span class="security-tag">MagixRust</span>
                     <span class="security-tag">MyRust</span>
@@ -3343,7 +3347,7 @@
             <div class="version-bar reveal">
                 <span class="label">Поддерживаемые версии:</span>
                 <div class="version-chips">
-                    <span>236</span><span>240</span><span>247</span><span>248</span><span>261</span><span>266</span><span>271</span>
+                    <span>236</span><span>240</span><span>247</span><span>248</span><span>261</span><span>265</span></span><span>266</span><span>271</span>
                 </div>
             </div>
 
@@ -3366,8 +3370,6 @@
                         <li>Show Weapon</li>
                         <li>Show Weapon Icon</li>
                         <li>Show Look Direction</li>
-                        <li>Look Line</li>
-                        <li>Head Marker</li>
                         <li>Show Game Teammates</li>
                         <li>Users System (Neural Users)</li>
                         <li>Show Sleepers</li>
@@ -3377,6 +3379,13 @@
                         <li>Dropped Items ESP</li>
                         <li>Corpses & Bags ESP</li>
                         <li>Player Hotbar ESP</li>
+                        <li>Player Trail</li>
+                        <li>Straw Hat</li>
+                        <li>Jump Effect</li>
+                        <li>Megido Capture</li>
+                        <li>Pentagram</li>
+                        <li>Target Hoops</li>
+                        <li>Bear ESP</li>
                         <li>Box Thickness</li>
                         <li>Max Distance</li>
                         <li>Anti-Cheat Screenshot Detector</li>
@@ -3406,11 +3415,9 @@
                         <li>Lock Target</li>
                         <li>Visibility Check</li>
                         <li>Target Random</li>
-                        <li>Shoot like del</li>
                         <li>Aim at Sleepers</li>
                         <li>Aim at Bots</li>
                         <li>No Aim Teammates</li>
-                        <li>Arkan Undetect</li>
                         <li>Target Bone (All)</li>
                         <li>Smoothness Control</li>
                         <li>Minimum Smoothness</li>
@@ -3456,27 +3463,29 @@
                         <li>Crosshair (9 Types)</li>
                         <li>Anti-OBS</li>
                         <li>Anti Screenshot</li>
-                        <li>Bypass MyRust & OldRust</li>
+                        <li>Bypass (Universal / OldRust / MyRust)</li>
                         <li>Zoom</li>
                         <li>Speedhack</li>
                         <li>Spider (Wall Climb)</li>
                         <li>Infinite Jump</li>
                         <li>High Jump</li>
                         <li>Jump Height</li>
-                        <li>Flyhack Stopper</li>
                         <li>Always Sprint</li>
                         <li>Debug Camera</li>
+                        <li>Desync</li>
                         <li>Object Rotation</li>
                         <li>Custom Time</li>
                         <li>Bright Ambient (Night)</li>
                         <li>Night Stars</li>
                         <li>Atmosphere Fog</li>
+                        <li>Lua System</li>
+                        <li>NeuralAI System</li>
                         <li>Spoofer File Run</li>
                         <li>Spoofer Runtime</li>
                         <li>Unload / Unload + Clean</li>
                         <li>Clean Traces</li>
                         <li>Reset All Settings</li>
-                        <li>Config System</li>
+                        <li>Config System (Refresh)</li>
                         <li>Hotkey Manager</li>
                     </ul>
                 </div>
@@ -3634,6 +3643,11 @@
                     <div class="duration">НАВСЕГДА</div>
                     <div class="price">8000<span>₽</span></div>
                     <a href="#" onclick="openBuyMethod(event, 'НАВСЕГДА', 8000)" class="price-btn"><span>Купить</span></a>
+                </div>
+                <div class="price-card reveal reveal-delay-5">
+                    <div class="duration">ALPHA</div>
+                    <div class="price">800<span>₽</span></div>
+                    <a href="#" onclick="openBuyMethod(event, 'ALPHA', 800)" class="price-btn"><span>Купить</span></a>
                 </div>
             </div>
         </section>
@@ -6749,6 +6763,12 @@ Logging:
                 freezeBtn.style.display = 'none';
                 unfreezeBtn.style.display = 'none';
             }
+
+            const alphaEl = document.getElementById('profileAlpha');
+            if (alphaEl) {
+                alphaEl.textContent = 'Alpha: ' + (p.alpha ? 'Yes' : 'No');
+                alphaEl.style.color = p.alpha ? '#34d399' : 'rgba(255,255,255,0.7)';
+            }
             } catch(err) {
                 const dbgEl = document.getElementById('profileSubField');
                 if (dbgEl) { dbgEl.textContent = 'ERROR: ' + err.message + ' | ' + err.stack; dbgEl.style.fontSize = '9px'; dbgEl.style.wordBreak = 'break-all'; }
@@ -7570,6 +7590,11 @@ Logging:
             overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;';
             const card = document.createElement('div');
             card.style.cssText = 'background:linear-gradient(160deg,rgba(26,19,40,0.08) 0%,rgba(14,10,22,0.03) 100%);border:1px solid rgba(229,148,228,0.3);border-radius:20px;padding:48px;text-align:center;max-width:480px;width:100%;box-shadow:0 40px 80px -30px rgba(0,0,0,0.55),0 0 0 1px rgba(255,255,255,0.08) inset,0 1px 0 rgba(255,255,255,0.15) inset,inset 0 0 30px rgba(229,148,228,0.08);transform:scale(0.9) translateY(20px);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);';
+
+            const isAlpha = String(days).toLowerCase() === 'alpha';
+            const titleText = isAlpha ? 'Дополнение ALPHA' : `Подписка ${days} д.`;
+            const extraNotice = isAlpha ? '<div style="margin-top:10px;font-size:12px;color:#f87171;font-weight:700;letter-spacing:0.04em;">ЭТО НЕ ЯВЛЯЕТСЯ ПОДПИСКОЙ, ЭТО ДОПОЛНЕНИЕ</div>' : '';
+
             card.innerHTML = `
                 <div style="margin-bottom:16px;">
                     <img src="https://raw.githubusercontent.com/darkapasta/napastilv5razkakrazz/16294ba4f412ab0c9536593e8d4e36219b7e9dbb/neuralic.png" 
@@ -7577,14 +7602,15 @@ Logging:
                          style="width:64px;height:64px;filter:brightness(0) saturate(100%) invert(40%) sepia(78%) saturate(468%) hue-rotate(234deg) brightness(101%) contrast(92%);">
                 </div>
                 <h2 style="font-size:32px;font-weight:800;color:#e8e8ed;margin:0 0 8px;font-family:'Inter',sans-serif;">Подтверждение покупки</h2>
-                <p style="color:rgba(255,255,255,0.6);font-size:14px;margin:0 0 24px;line-height:1.5;font-family:'Inter',sans-serif;">Подписка ${days} д. — <span id="purchasePriceDisplay" style="color:#e574e4;font-weight:700;">${cost} NC</span></p>
+                <p style="color:rgba(255,255,255,0.6);font-size:14px;margin:0 0 24px;line-height:1.5;font-family:'Inter',sans-serif;">${titleText} — <span id="purchasePriceDisplay" style="color:#e574e4;font-weight:700;">${cost} NC</span></p>
                 <div style="margin-bottom:24px;">
-                    <input type="text" id="purchasePromoInput" placeholder="Промокод на скидку (необязательно)" oninput="checkPurchasePromo(${days}, ${cost})" style="width:100%;padding:12px 16px;border:1px solid rgba(255,255,255,0.1);border-radius:10px;background:rgba(0,0,0,0.3);color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(229,148,228,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                    <input type="text" id="purchasePromoInput" placeholder="Промокод на скидку (необязательно)" oninput="checkPurchasePromo('${days}', ${cost})" style="width:100%;padding:12px 16px;border:1px solid rgba(255,255,255,0.1);border-radius:10px;background:rgba(0,0,0,0.3);color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='rgba(229,148,228,0.5)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
                     <div id="purchasePromoResult" style="font-size:12px;margin-top:6px;min-height:16px;"></div>
+                    ${extraNotice}
                 </div>
                 <div style="display:flex;gap:12px;">
                     <button onclick="document.getElementById('purchaseModal').remove()" style="flex:1;padding:12px;border:1px solid rgba(255,255,255,0.1);border-radius:10px;background:transparent;color:rgba(255,255,255,0.6);font-weight:600;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;">Отмена</button>
-                    <button onclick="confirmPurchase(${days}, ${cost})" id="purchaseConfirmBtn" style="flex:1;padding:12px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;">Купить</button>
+                    <button onclick="confirmPurchase('${days}', ${cost})" id="purchaseConfirmBtn" style="flex:1;padding:12px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;">Купить</button>
                 </div>
             `;
             overlay.appendChild(card);
@@ -7660,14 +7686,13 @@ Logging:
                 if (response.ok && data.success) {
                     document.getElementById('purchaseModal')?.remove();
                     updateBalance(data.newBalance);
-                    if (data.subscription) {
-                        const cachedUser = JSON.parse(localStorage.getItem('nc_user') || '{}');
-                        cachedUser.subscription = data.subscription;
-                        if (data.newBalance !== undefined) cachedUser.balance = data.newBalance;
-                        localStorage.setItem('nc_user', JSON.stringify(cachedUser));
-                    }
+                    const cachedUser = JSON.parse(localStorage.getItem('nc_user') || '{}');
+                    if (data.subscription) cachedUser.subscription = data.subscription;
+                    if (data.alpha !== undefined) cachedUser.alpha = data.alpha;
+                    if (data.newBalance !== undefined) cachedUser.balance = data.newBalance;
+                    localStorage.setItem('nc_user', JSON.stringify(cachedUser));
                     loadProfile();
-                    let msg = `Подписка на ${days} д. активирована!`;
+                    let msg = String(days).toLowerCase() === 'alpha' ? 'Дополнение ALPHA успешно активировано!' : `Подписка на ${days} д. активирована!`;
                     if (data.discount) msg += ` (скидка ${data.discount}%)`;
                     showModal(msg, 'Успех');
                 } else {
